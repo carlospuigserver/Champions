@@ -1,7 +1,7 @@
 import sqlite3
 
 # Conectarse a la base de datos nueva con el nombre especificado
-conn = sqlite3.connect('21-22/champions(21-22).db')
+conn = sqlite3.connect('21-22/SQL/champions(21-22).db')
 cursor = conn.cursor()
 
 # Crear la tabla de la fase de grupos
@@ -204,5 +204,5 @@ conn.commit()
 conn.close()
 
 # Ruta al archivo de la base de datos
-db_file_path = '21-22/champions(21-22).db'
+db_file_path = '21-22/SQL/champions(21-22).db'
 print(db_file_path)

@@ -15,4 +15,4 @@ def export_db_tables_to_csv(database_path):
     conn.close()
 
 # Para ejecutar la función, descomenta la siguiente línea y asegúrate de que el nombre de la base de datos sea correcto.
-export_db_tables_to_csv('21-22/champions(21-22).db')
+export_db_tables_to_csv('21-22/SQL/champions(21-22).db')
