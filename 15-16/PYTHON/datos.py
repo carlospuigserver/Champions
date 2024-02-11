@@ -1,7 +1,7 @@
 import sqlite3
 
 # Conectarse a la base de datos nueva con el nombre especificado
-conn = sqlite3.connect('14-15/SQL/champions(14-15).db')
+conn = sqlite3.connect('15-16/SQL/champions(15-16).db')
 cursor = conn.cursor()
 
 # Crear la tabla de la fase de grupos
@@ -177,19 +177,23 @@ octavos_matches = [
 
 # Insert data into 'cuartos' table
 cuartos_matches = [
-    
+    (1, 'Benfica', 'Bayern', '0-1', '2-2'), 
+    (2, 'Barcelona', 'Atlético de Madrid', '2-1', '0-2'), 
+    (3, 'Man City', 'Paris', '2-2', '1-0'), 
+    (4, 'Wolfsburg', 'Real Madrid', '2-0', '0-3')
 ]
 
 
 # Insert data into 'semis' table
 semis_matches = [
-    
+    (1, 'Real Madrid', 'Man City', '0-0', '1-0'), 
+    (2, 'Bayern', 'Atlético de Madrid', '1-0', '1-2')
 ]
 
 
 # Insert data into 'final' table
 final_match = [
-    
+    (1, 'Real Madrid', 'Atlético de Madrid', '5-3') #penaltis
 ]
 
 # Insertar los datos en las tablas correspondientes
@@ -203,5 +207,5 @@ conn.commit()
 conn.close()
 
 # Ruta al archivo de la base de datos
-db_file_path = '14-15/SQL/champions(14-15).db'
+db_file_path = '1-516/SQL/champions(15-16).db'
 print(db_file_path)

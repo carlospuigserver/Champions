@@ -1,0 +1,97 @@
+id_partido,equipo_local,equipo_visitante,resultado_final
+1,Gent,Lyon,1-1
+2,Valencia,Zenit,2-3
+3,Dynamo Kyiv,FC Porto,2-2
+4,Olympiacos,Bayern,0-3
+5,Chelsea,Maccabi Tel Aviv,4-0
+6,Dinamo Zagreb,Arsenal,2-1
+7,Roma,Barcelona,1-1
+8,Leverkusen,BATE Borisov,4-1
+9,Sevilla,Mönchengladbach,3-0
+10,Man City,Juventus,1-2
+11,PSV,Man United,2-1
+12,Wolfsburg,CSKA Moskva,1-0
+13,Paris,Malmö,2-0
+14,Real Madrid,Shakhtar Donetsk,4-0
+15,Galatasaray,Atlético de Madrid,0-2
+16,Benfica,Astana,2-0
+17,Juventus,Sevilla,2-0
+18,Mönchengladbach,Man City,1-2
+19,CSKA Moskva,PSV,3-2
+20,Man United,Wolfsburg,2-1
+21,Shakhtar Donetsk,Paris,0-3
+22,Malmö,Real Madrid,0-2
+23,Astana,Galatasaray,2-2
+24,Atlético de Madrid,Benfica,1-2
+25,Lyon,Valencia,0-1
+26,Zenit,Gent,2-1
+27,FC Porto,Chelsea,2-1
+28,Maccabi Tel Aviv,Dynamo Kyiv,0-2
+29,Arsenal,Olympiacos,2-3
+30,Bayern,Dinamo Zagreb,5-0
+31,Barcelona,Leverkusen,2-1
+32,BATE Borisov,Roma,3-2
+33,Man City,Sevilla,2-1
+34,Juventus,Mönchengladbach,0-0
+35,Atlético de Madrid,Astana,4-0
+36,Galatasaray,Benfica,2-1
+37,Wolfsburg,PSV,2-0
+38,CSKA Moskva,Man United,1-1
+39,Paris,Real Madrid,0-0
+40,Malmö,Shakhtar Donetsk,1-0
+41,Zenit,Lyon,3-1
+42,Valencia,Gent,2-1
+43,Dynamo Kyiv,Chelsea,0-0
+44,FC Porto,Maccabi Tel Aviv,2-0
+45,Dinamo Zagreb,Olympiacos,0-1
+46,Arsenal,Bayern,2-0
+47,BATE Borisov,Barcelona,0-2
+48,Leverkusen,Roma,4-4
+49,Gent,Valencia,1-0
+50,Lyon,Zenit,0-2
+51,Maccabi Tel Aviv,FC Porto,1-3
+52,Olympiacos,Dinamo Zagreb,2-1
+53,Chelsea,Dynamo Kyiv,2-1
+54,Bayern,Arsenal,5-1
+55,Roma,Leverkusen,3-2
+56,Barcelona,BATE Borisov,3-0
+57,Mönchengladbach,Juventus,1-1
+58,Sevilla,Man City,1-3
+59,Benfica,Galatasaray,2-1
+60,PSV,Wolfsburg,2-0
+61,Man United,CSKA Moskva,1-0
+62,Astana,Atlético de Madrid,0-0
+63,Real Madrid,Paris,1-0
+64,Shakhtar Donetsk,Malmö,4-0
+65,Mönchengladbach,Sevilla,4-2
+66,Juventus,Man City,1-0
+67,Man United,PSV,0-0
+68,CSKA Moskva,Wolfsburg,0-2
+69,Maccabi Tel Aviv,Chelsea,0-4
+70,Shakhtar Donetsk,Real Madrid,3-4
+71,Malmö,Paris,0-5
+72,Atlético de Madrid,Galatasaray,2-0
+73,Astana,Benfica,2-2
+74,Lyon,Gent,1-2
+75,FC Porto,Dynamo Kyiv,0-2
+76,Bayern,Olympiacos,4-0
+77,Arsenal,Dinamo Zagreb,3-0
+78,Barcelona,Roma,6-1
+79,BATE Borisov,Leverkusen,1-1
+80,Zenit,Valencia,2-0
+81,Gent,Zenit,2-1
+82,Valencia,Lyon,0-2
+83,Dynamo Kyiv,Maccabi Tel Aviv,1-0
+84,Chelsea,FC Porto,2-0
+85,Olympiacos,Arsenal,0-3
+86,Dinamo Zagreb,Bayern,0-2
+87,Roma,BATE Borisov,0-0
+88,Leverkusen,Barcelona,1-1
+89,Man City,Mönchengladbach,4-2
+90,Sevilla,Juventus,1-0
+91,Benfica,Atlético de Madrid,1-2
+92,Galatasaray,Astana,1-1
+93,PSV,CSKA Moskva,2-1
+94,Wolfsburg,Man United,3-2
+95,Paris,Shakhtar Donetsk,2-0
+96,Real Madrid,Malmö,8-0
