@@ -1,7 +1,7 @@
 import sqlite3
 
 # Conectarse a la base de datos nueva con el nombre especificado
-conn = sqlite3.connect('15-16/SQL/champions(15-16).db')
+conn = sqlite3.connect('16-17/SQL/champions(16-17).db')
 cursor = conn.cursor()
 
 # Crear la tabla de la fase de grupos
@@ -167,23 +167,35 @@ def insert_group_stage_matches(cursor, matches):
 
 # Insert data into 'octavos' table
 octavos_matches = [
-    
+    (1, 'Atlético de Madrid', 'Leverkusen', '4-2', '0-0'),
+    (2, 'Mónaco', 'Man City', '3-5', '3-1'),
+    (3, 'Leicester', 'Sevilla', '1-2', '2-0'),
+    (4, 'Juventus', 'FC Porto', '2-0', '1-0'),
+    (5, 'Dortmund', 'Benfica', '0-1', '4-0'),
+    (6, 'Barcelona', 'Paris', '0-4', '6-1'),
+    (7, 'Real Madrid', 'Napoli', '3-1', '3-1'),
+    (8, 'Bayern', 'Arsenal', '5-1', '5-1')
 ]
 
 # Insert data into 'cuartos' table
 cuartos_matches = [
-   
+   (1, 'Monaco', 'Dortmund', '3-2', '3-1'),
+    (2, 'Juventus', 'Barcelona', '3-0', '0-0'),
+    (3, 'Real Madrid', 'Bayern', '2-1', '4-2'),
+    (4, 'Atlético de Madrid', 'Leicester', '1-0', '1-1')
 ]
 
 
 # Insert data into 'semis' table
 semis_matches = [
-   
+    (1, 'Real Madrid', 'Atlético de Madrid', '3-0', '1-2'),
+    (2, 'Juventus', 'Monaco', '2-0', '2-1')
 ]
 
 
 # Insert data into 'final' table
 final_match = [
+    (1, 'Juventus', 'Real Madrid', '1-4')
     
 ]
 
@@ -198,5 +210,5 @@ conn.commit()
 conn.close()
 
 # Ruta al archivo de la base de datos
-db_file_path = '1-516/SQL/champions(15-16).db'
+db_file_path = '16-17/SQL/champions(16-17).db'
 print(db_file_path)
