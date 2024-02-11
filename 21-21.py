@@ -1,8 +1,58 @@
 import sqlite3
 
 # Connect to a database (or create one if it doesn't exist)
-conn = sqlite3.connect('/mnt/data/champions_league_2021_2022.db')
+conn = sqlite3.connect('champions_league_2021_2022.db')
 cursor = conn.cursor()
+
+
+# Definiré primero la función para añadir la tabla de la fase de grupos
+def create_group_stage_table(cursor):
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS fase_de_grupos (
+            id_partido INTEGER PRIMARY KEY AUTOINCREMENT,
+            equipo_local TEXT,
+            equipo_visitante TEXT,
+            resultado_final TEXT
+        )
+    ''')
+
+# A continuación, definiré la función para insertar los partidos en la tabla de la fase de grupos
+def insert_group_stage_matches(cursor, matches):
+    cursor.executemany('''
+        INSERT INTO fase_de_grupos (equipo_local, equipo_visitante, resultado_final)
+        VALUES (?, ?, ?)
+    ''', matches)
+
+# Conectarse a la base de datos y crear la tabla de la fase de grupos
+conn = sqlite3.connect('champions_league_2021_2022.db')
+cursor = conn.cursor()
+create_group_stage_table(cursor)
+
+# Lista de partidos y resultados de la fase de grupos para insertar en la base de datos
+group_stage_matches = [
+    ('Barcelona', 'Bayern München', '0-3'),
+    ('Dynamo Kyiv', 'Benfica', '0-0'),
+    ('Chelsea', 'Zenit', '1-0'),
+    ('Malmö', 'Juventus', '0-3'),
+    ('Lille', 'Wolfsburg', '0-0'),
+    ('Villarreal', 'Atalanta', '2-2'),
+    ('Young Boys', 'Manchester United', '2-1'),
+    ('Sevilla', 'Red Bull Salzburg', '1-1'),
+    ('Sporting de Portugal', 'Ajax', '1-5'),
+    ('Atlético de Madrid', 'Porto', '0-0'),
+    ('Manchester City', 'RB Leipzig', '6-3'),
+    ('Brugge', 'PSG', '1-1'),
+    ('Sheriff Tiraspol', 'Shakhtar Donetsk', '2-0'),
+    ('Beşiktaş', 'Borussia Dortmund', '1-2'),
+    ('Liverpool', 'Milan', '3-2'),
+    ('Inter', 'Real Madrid', '0-1')
+]
+
+# Insertar los partidos de la fase de grupos en la base de datos
+insert_group_stage_matches(cursor, group_stage_matches)
+
+# Guardar los cambios y cerrar la conexión a la base de datos
+
 
 # Create tables for each stage of the Champions League
 cursor.execute('''
@@ -82,5 +132,5 @@ cursor.executemany('INSERT INTO final VALUES (?,?,?,?)', final_match)
 
 
 # Provide the path to the database file
-db_file_path = '/mnt/data/champions_league_2021_2022.db'
+db_file_path = 'champions_league_2021_2022.db'
 db_file_path
