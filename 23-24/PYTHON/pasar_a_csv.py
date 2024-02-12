@@ -21,9 +21,9 @@ def export_db_tables_to_csv(database_path):
     conn.close()
     
     # Exportar el DataFrame global a un único archivo CSV
-    csv_file_name = "18-19.csv"
+    csv_file_name = "23-24.csv"
     df_global.to_csv(csv_file_name, index=False)
     print(f"Todas las tablas han sido exportadas a {csv_file_name}")
 
 # Para ejecutar la función, asegúrate de que el nombre de la base de datos sea correcto
-export_db_tables_to_csv('18-19/SQL/champions(18-19).db')
+export_db_tables_to_csv('23-24/SQL/champions(23-24).db')
