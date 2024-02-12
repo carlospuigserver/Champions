@@ -1,0 +1,97 @@
+id_partido,equipo_local,equipo_visitante,resultado_final
+1,Club Brugge,Dortmund,0-1
+2,Monaco,Atlético,1-2
+3,Barcelona,PSV Eindhoven,4-0
+4,Inter,Tottenham,2-1
+5,Liverpool,Paris,3-2
+6,Crvena zvezda,Napoli,0-0
+7,Galatasaray,Lokomotiv Moskva,3-0
+8,Schalke,Porto,1-1
+9,Ajax,AEK Athens,3-0
+10,Benfica,Bayern München,0-2
+11,Shakhtar Donetsk,Hoffenheim,2-2
+12,Manchester City,Lyon,1-2
+13,Real Madrid,Roma,3-0
+14,Viktoria Plzeň,CSKA Moskva,2-2
+15,Young Boys,Manchester United,0-3
+16,Valencia,Juventus,0-2
+17,Bayern München,Ajax,1-1
+18,AEK Athens,Benfica,2-3
+19,Hoffenheim,Manchester City,1-2
+20,Lyon,Shakhtar Donetsk,2-2
+21,CSKA Moskva,Real Madrid,1-0
+22,Roma,Viktoria Plzeň,5-0
+23,Juventus,Young Boys,3-0
+24,Manchester United,Valencia,0-0
+25,Atlético Madrid,Club Brugge,3-1
+26,Dortmund,Monaco,3-0
+27,Tottenham,Barcelona,2-4
+28,PSV Eindhoven,Inter,1-2
+29,Paris Saint-Germain,Crvena zvezda,6-1
+30,Napoli,Liverpool,1-0
+31,Lokomotiv Moskva,Schalke 04,0-1
+32,Porto,Galatasaray,1-0
+33,AEK Athens,Bayern München,0-2
+34,Young Boys,Valencia,1-1
+35,Ajax,Benfica,1-0
+36,Shakhtar Donetsk,Manchester City,0-3
+37,Real Madrid,Viktoria Plzeň,2-1
+38,Roma,CSKA Moskva,3-0
+39,Manchester United,Juventus,0-1
+40,Hoffenheim,Lyon,3-3
+41,Club Brugge,Monaco,1-1
+42,PSV Eindhoven,Tottenham,2-2
+43,Barcelona,Inter,2-0
+44,Borussia Dortmund,Atlético Madrid,4-0
+45,Liverpool,Crvena zvezda,4-0
+46,Galatasaray,Schalke 04,0-0
+47,Lokomotiv Moskva,Porto,1-3
+48,Paris Saint-Germain,Napoli,2-2
+49,Bayern München,AEK Athens,2-0
+50,Valencia,Young Boys,3-1
+51,Benfica,Ajax,1-1
+52,Manchester City,Shakhtar Donetsk,6-0
+53,Viktoria Plzeň,Real Madrid,0-5
+54,CSKA Moskva,Roma,1-2
+55,Juventus,Manchester United,1-2
+56,Lyon,Hoffenheim,2-2
+57,Monaco,Club Brugge,0-4
+58,Tottenham,PSV Eindhoven,2-1
+59,Inter,Barcelona,1-1
+60,Atlético Madrid,Borussia Dortmund,2-0
+61,Crvena zvezda,Liverpool,2-0
+62,Schalke 04,Galatasaray,2-0
+63,Porto,Lokomotiv Moskva,4-1
+64,Napoli,Paris Saint-Germain,1-1
+65,AEK Athens,Ajax,0-2
+66,CSKA Moskva,Viktoria Plzeň,1-2
+67,Roma,Real Madrid,0-2
+68,Manchester United,Young Boys,1-0
+69,Juventus,Valencia,1-0
+70,Lyon,Manchester City,2-2
+71,Bayern München,Benfica,5-1
+72,Hoffenheim,Shakhtar Donetsk,2-3
+73,Lokomotiv Moskva,Galatasaray,2-0
+74,Atlético Madrid,Monaco,2-0
+75,Borussia Dortmund,Club Brugge,0-0
+76,PSV Eindhoven,Barcelona,1-2
+77,Tottenham,Inter,1-0
+78,Paris Saint-Germain,Liverpool,2-1
+79,Napoli,Crvena zvezda,3-1
+80,Porto,Schalke 04,3-1
+81,Viktoria Plzeň,Roma,2-1
+82,Real Madrid,CSKA Moskva,0-3
+83,Young Boys,Juventus,2-1
+84,Valencia,Manchester United,2-1
+85,Ajax,Bayern München,3-3
+86,Benfica,AEK Athens,1-0
+87,Manchester City,Hoffenheim,2-1
+88,Shakhtar Donetsk,Lyon,1-1
+89,Club Brugge,Atlético Madrid,0-0
+90,Monaco,Borussia Dortmund,0-2
+91,Barcelona,Tottenham,1-1
+92,Red Star Belgrade,Paris Saint-Germain,1-4
+93,Liverpool,Napoli,1-0
+94,Galatasaray,Porto,2-3
+95,Schalke 04,Lokomotiv Moskva,1-0
+96,Inter,PSV Eindhoven,1-1

@@ -1,7 +1,7 @@
 import sqlite3
 
 # Conectarse a la base de datos nueva con el nombre especificado
-conn = sqlite3.connect('14-15/SQL/champions(14-15).db')
+conn = sqlite3.connect('18-19/SQL/champions(18-19).db')
 cursor = conn.cursor()
 
 # Crear la tabla de la fase de grupos
@@ -57,7 +57,6 @@ cursor.execute('''
 
 # Lista de partidos y resultados de la fase de grupos para insertar en la base de datos
 group_stage_matches = [
-   
     ("Club Brugge", "Dortmund", "0-1"),
     ("Monaco", "Atlético", "1-2"),
     ("Barcelona", "PSV Eindhoven", "4-0"),
@@ -68,7 +67,7 @@ group_stage_matches = [
     ("Schalke", "Porto", "1-1"),
     ("Ajax", "AEK Athens", "3-0"),
     ("Benfica", "Bayern München", "0-2"),
-    ("Shakhtar", "Hoffenheim", "2-2"),
+    ("Shakhtar Donetsk", "Hoffenheim", "2-2"),
     ("Manchester City", "Lyon", "1-2"),
     ("Real Madrid", "Roma", "3-0"),
     ("Viktoria Plzeň", "CSKA Moskva", "2-2"),
@@ -122,7 +121,7 @@ group_stage_matches = [
     ("Schalke 04", "Galatasaray", "2-0"),
     ("Porto", "Lokomotiv Moskva", "4-1"),
     ("Napoli", "Paris Saint-Germain", "1-1"),
-    ("AEK Athens", "Ajax", "0-2"),
+     ("AEK Athens", "Ajax", "0-2"),
     ("CSKA Moskva", "Viktoria Plzeň", "1-2"),
     ("Roma", "Real Madrid", "0-2"),
     ("Manchester United", "Young Boys", "1-0"),
@@ -130,8 +129,6 @@ group_stage_matches = [
     ("Lyon", "Manchester City", "2-2"),
     ("Bayern München", "Benfica", "5-1"),
     ("Hoffenheim", "Shakhtar Donetsk", "2-3"),
-    ("Ajax", "AEK Athens", "2-0"),
-    ("Shakhtar Donetsk", "Hoffenheim", "3-2"),
     ("Lokomotiv Moskva", "Galatasaray", "2-0"),
     ("Atlético Madrid", "Monaco", "2-0"),
     ("Borussia Dortmund", "Club Brugge", "0-0"),
@@ -140,7 +137,7 @@ group_stage_matches = [
     ("Paris Saint-Germain", "Liverpool", "2-1"),
     ("Napoli", "Crvena zvezda", "3-1"),
     ("Porto", "Schalke 04", "3-1"),
-     ("Viktoria Plzeň", "Roma", "2-1"),
+    ("Viktoria Plzeň", "Roma", "2-1"),
     ("Real Madrid", "CSKA Moskva", "0-3"),
     ("Young Boys", "Juventus", "2-1"),
     ("Valencia", "Manchester United", "2-1"),
@@ -148,8 +145,6 @@ group_stage_matches = [
     ("Benfica", "AEK Athens", "1-0"),
     ("Manchester City", "Hoffenheim", "2-1"),
     ("Shakhtar Donetsk", "Lyon", "1-1"),
-    ("Viktoria Plzeň", "Roma", "2-1"),
-    ("Real Madrid", "CSKA Moskva", "0-3"),
     ("Club Brugge", "Atlético Madrid", "0-0"),
     ("Monaco", "Borussia Dortmund", "0-2"),
     ("Barcelona", "Tottenham", "1-1"),
@@ -158,9 +153,8 @@ group_stage_matches = [
     ("Galatasaray", "Porto", "2-3"),
     ("Schalke 04", "Lokomotiv Moskva", "1-0"),
     ("Inter", "PSV Eindhoven", "1-1")
-
-
 ]
+
 # Insertar datos en la tabla de la fase de grupos
 def insert_group_stage_matches(cursor, matches):
     cursor.executemany('''
@@ -170,24 +164,37 @@ def insert_group_stage_matches(cursor, matches):
 
 # Insert data into 'octavos' table
 octavos_matches = [
-    
+    (1, "Schalke 04", "Manchester City", "2-3", "0-7"),
+    (2, "Atlético Madrid", "Juventus", "2-0", "0-3"),
+    (3, "Manchester United", "Paris Saint-Germain", "0-2", "3-1"),
+    (4, "Tottenham Hotspur", "Borussia Dortmund", "3-0", "1-0"),
+    (5, "Lyon", "Barcelona", "0-0", "1-5"),
+    (6, "Roma", "Porto", "2-1", "1-3"),
+    (7, "Ajax", "Real Madrid", "1-2", "4-1"),
+    (8, "Liverpool", "Bayern Munich", "0-0", "3-1")
 ]
+
 
 # Insert data into 'cuartos' table
 cuartos_matches = [
-    
+    (1, "Liverpool FC", "FC Porto", "2-0", "4-1"),
+    (2, "Tottenham Hotspur", "Manchester City", "1-0", "3-4"),
+    (3, "AFC Ajax", "Juventus", "1-1", "2-1"),
+    (4, "Manchester United", "FC Barcelona", "0-1", "0-3")
 ]
 
 
 # Insert data into 'semis' table
 semis_matches = [
-    
+    (1, "Tottenham Hotspur", "AFC Ajax", "0-1", "3-2"),
+    (2, "FC Barcelona", "Liverpool FC", "3-0", "0-4")
 ]
+
 
 
 # Insert data into 'final' table
 final_match = [
-   
+   (1, "Tottenham Hotspur", "Liverpool", "0-2")
 ]
 
 # Insertar los datos en las tablas correspondientes
@@ -201,5 +208,5 @@ conn.commit()
 conn.close()
 
 # Ruta al archivo de la base de datos
-db_file_path = '14-15/SQL/champions(14-15).db'
+db_file_path = '18-19/SQL/champions(18-19).db'
 print(db_file_path)
