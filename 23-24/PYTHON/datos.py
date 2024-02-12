@@ -165,7 +165,14 @@ def insert_group_stage_matches(cursor, matches):
 
 # Insert data into 'octavos' table
 octavos_matches = [
-    
+    (1, "Porto", "Arsenal", "", ""),
+    (2, "Napoli", "Barcelona", "", ""),
+    (3, "Paris Saint-Germain", "Real Sociedad", "", ""),
+    (4, "Inter", "Atletico Madrid", "", ""),
+    (5, "PSV", "Borussia Dortmund", "", ""),
+    (6, "Lazio", "Bayern Munich", "", ""),
+    (7, "Copenhagen", "Manchester City", "", ""),
+    (8, "RB Leipzig", "Real Madrid", "", "")
 ]
 
 # Insert data into 'cuartos' table
