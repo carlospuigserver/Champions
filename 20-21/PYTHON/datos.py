@@ -1,7 +1,7 @@
 import sqlite3
 
 # Conectarse a la base de datos nueva con el nombre especificado
-conn = sqlite3.connect('19-20/SQL/champions(19-20).db')
+conn = sqlite3.connect('20-21/SQL/champions(20-21).db')
 cursor = conn.cursor()
 
 # Crear la tabla de la fase de grupos
@@ -120,6 +120,38 @@ group_stage_matches = [
     ('Krasnodar', 'Sevilla', '1-2'),
     ('Rennes', 'Chelsea', '1-2'),
     ('PSG', 'RB Leipzig', '1-0'),
+    ('Lokomotiv Moscú', 'Salzburg', '1-3'),
+    ('Shakhtar Donetsk', 'Real Madrid', '2-0'),
+    ('Atalanta', 'Midtjylland', '1-1'),
+    ('Borussia Mönchengladbach', 'Inter Milan', '2-3'),
+    ('Porto', 'Manchester City', '0-0'),
+    ('Marsella', 'Olympiacos', '2-1'),
+    ('Liverpool', 'Ajax', '1-0'),
+    ('Atlético Madrid', 'Bayern Múnich', '1-1'),
+    ('İstanbul Başakşehir', 'RB Leipzig', '3-4'),
+    ('Krasnodar', 'Rennes', '1-0'),
+    ('Sevilla', 'Chelsea', '0-4'),
+    ('Borussia Dortmund', 'Lazio', '1-1'),
+    ('Club Brugge', 'Zenit', '3-0'),
+    ('Juventus', 'Dinamo Kiev', '3-0'),
+    ('Ferencváros', 'Barcelona', '0-3'),
+    ('Manchester United', 'Paris Saint-Germain', '1-3'),
+     ('Bayern Múnich', 'Lokomotiv Moscú', '2-0'),
+    ('Salzburg', 'Atlético Madrid', '0-2'),
+    ('Real Madrid', 'Borussia Mönchengladbach', '2-0'),
+    ('Inter Milan', 'Shakhtar Donetsk', '0-0'),
+    ('Manchester City', 'Marsella', '3-0'),
+    ('Olympiacos', 'Porto', '0-2'),
+    ('Ajax', 'Atalanta', '0-1'),
+    ('Midtjylland', 'Liverpool', '1-1'),
+    ('Paris Saint-Germain', 'İstanbul Başakşehir', '5-1'),
+    ('RB Leipzig', 'Manchester United', '3-2'),
+    ('Rennes', 'Sevilla', '1-3'),
+    ('Chelsea', 'Krasnodar', '1-1'),
+    ('Lazio', 'Club Brugge', '2-2'),
+    ('Zenit', 'Borussia Dortmund', '1-2'),
+    ('Barcelona', 'Juventus', '0-3'),
+    ('Dinamo Kiev', 'Ferencváros', '1-0')
 
 ]
 
@@ -131,28 +163,46 @@ def insert_group_stage_matches(cursor, matches):
     ''', matches)
 
 # Insert data into 'octavos' table
-octavos_matches = [
     
+octavos_matches = [
+    (1, 'Borussia Mönchengladbach', 'Manchester City', '0-2', '0-2'),
+    (2, 'Lazio', 'Bayern Múnich', '1-4', '1-2'),
+    (3, 'Atlético Madrid', 'Chelsea', '0-1', '0-2'),
+    (4, 'RB Leipzig', 'Liverpool', '0-2', '0-2'),
+    (5, 'Porto', 'Juventus', '2-1', '2-3'),
+    (6, 'Barcelona', 'Paris Saint-Germain', '1-4', '1-1'),
+    (7, 'Sevilla', 'Borussia Dortmund', '2-3', '2-2'),
+    (8, 'Atalanta', 'Real Madrid', '0-1', '1-3')
 ]
+
 
 
 # Insert data into 'cuartos' table
 cuartos_matches = [
+    (1, 'Manchester City', 'Borussia Dortmund', '2-1', '2-1'),
+    (2, 'Porto', 'Chelsea', '0-2', '0-1'), # Nota: El segundo partido se jugó técnicamente con Porto como "local" debido a restricciones de viaje, pero ambos partidos tuvieron lugar en Sevilla.
+    (3, 'Bayern Múnich', 'Paris Saint-Germain', '2-3', '0-1'),
+    (4, 'Real Madrid', 'Liverpool', '3-1', '0-0')
 ]
+
 
 
 # Insert data into 'semis' table
 semis_matches = [
-    
+    (1, 'Real Madrid', 'Chelsea', '1-1', '0-2'),
+    (2, 'Paris Saint-Germain', 'Manchester City', '1-2', '0-2')
 ]
+
 
 
 
 
 # Insert data into 'final' table
-final_match = [
     
+final_match = [
+    (1, 'Manchester City', 'Chelsea', '0-1')
 ]
+
 
 
 # Insertar los datos en las tablas correspondientes
@@ -166,5 +216,5 @@ conn.commit()
 conn.close()
 
 # Ruta al archivo de la base de datos
-db_file_path = '19-20/SQL/champions(19-20).db'
+db_file_path = '20-21/SQL/champions(20-21).db'
 print(db_file_path)
