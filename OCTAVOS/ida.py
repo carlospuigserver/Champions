@@ -153,16 +153,16 @@ def cargar_y_procesar_temporada(ruta_archivo):
 
 # Lista de rutas de archivos CSV para temporadas anteriores
 archivos_temporadas = [
-    '13-14/13-14.csv', '14-15/14-15.csv', '15-16/15-16.csv', '16-17/16-17.csv', '17-18/17-18.csv', '18-19/18-19.csv', '19-20/19-20.csv', '20-21/20-21.csv', '21-22/21-22.csv', '22-23/22-23.csv'
+    '13-14/13-14.csv', '14-15/14-15.csv', '15-16/15-16.csv', '16-17/16-17.csv', 
+    '17-18/17-18.csv', '18-19/18-19.csv', '19-20/19-20.csv', '20-21/20-21.csv', 
+    '21-22/21-22.csv', '22-23/22-23.csv'
 ]
 
-
 df_todas_temporadas = pd.concat([cargar_y_procesar_temporada(archivo) for archivo in archivos_temporadas])
-# Eliminando filas con NaN en las columnas relevantes en df_todas_temporadas
 df_todas_temporadas.dropna(subset=['resultado_ida', 'equipo_local', 'equipo_visitante'], inplace=True)
 
 # Cargando los datos específicos de la temporada 23-24
-ruta_archivo_23_24 = '23-24/23-24.csv'  # Ajusta la ruta según sea necesario
+ruta_archivo_23_24 = '23-24/23-24.csv'
 df_23_24 = pd.read_csv(ruta_archivo_23_24)
 df_23_24['equipo_local'] = df_23_24['equipo_local'].apply(unificar_nombres)
 df_23_24['equipo_visitante'] = df_23_24['equipo_visitante'].apply(unificar_nombres)
@@ -196,7 +196,22 @@ X_23_24_octavos = df_23_24_octavos[['equipo_local', 'equipo_visitante']]
 # Realizando predicciones
 predicciones_ida_23_24 = pipeline.predict(X_23_24_octavos)
 
-# Mostrando predicciones con nombres de equipos
-print("Predicciones de resultados de ida para octavos de final de la temporada 23-24:")
-for i, (index, row) in enumerate(df_23_24_octavos.iterrows()):
-    print(f"Partido {i+1}: {row['equipo_local']} vs {row['equipo_visitante']} - Resultado de ida predicho: {predicciones_ida_23_24[i]}")
+# Crear un DataFrame temporal para las predicciones
+df_predicciones = pd.DataFrame({
+    'id_partido': df_23_24_octavos['id_partido'].values,
+    'resultado_ida_pred': predicciones_ida_23_24
+})
+
+# Fusionar el DataFrame original de la temporada 23-24 con las predicciones
+df_23_24 = pd.merge(df_23_24, df_predicciones, on='id_partido', how='left')
+
+# Actualizar solo las filas de los octavos de final con las predicciones de 'resultado_ida'
+df_23_24.loc[df_23_24['fase'] == 'octavos', 'resultado_ida'] = df_23_24.loc[df_23_24['fase'] == 'octavos', 'resultado_ida_pred']
+
+# Eliminar la columna temporal de predicciones
+df_23_24.drop(columns=['resultado_ida_pred'], inplace=True)
+
+# Guardar el DataFrame actualizado en un nuevo archivo CSV
+df_23_24.to_csv('OctavosIda.csv', index=False)
+
+print("El archivo 'OctavosIda.csv' ha sido guardado correctamente. Solo los resultados de ida de los octavos de final han sido actualizados con las predicciones.")
