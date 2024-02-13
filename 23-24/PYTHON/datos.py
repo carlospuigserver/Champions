@@ -57,7 +57,7 @@ cursor.execute('''
 
 # Lista de partidos y resultados de la fase de grupos para insertar en la base de datos
 group_stage_matches = [
-    ("AC Milan", "Newcastle", "0-0"),
+    ("Milan", "Newcastle", "0-0"),
     ("Young Boys", "RB Leipzig", "1-3"),
     ("Feyenoord", "Celtic", "2-0"),
     ("Lazio", "Atletico Madrid", "1-1"),
@@ -84,7 +84,7 @@ group_stage_matches = [
     ("Atletico Madrid", "Feyenoord", "3-2"),
     ("Royal Antwerp", "Shakhtar Donetsk", "2-3"),
     ("Celtic", "Lazio", "1-2"),
-    ("Borussia Dortmund", "AC Milan", "0-0"),
+    ("Borussia Dortmund", "Milan", "0-0"),
     ("Newcastle", "Paris Saint-Germain", "4-1"),
     ("RB Leipzig", "Manchester City", "1-3"),
     ("Crvena zvezda", "Young Boys", "2-2"),
@@ -100,7 +100,7 @@ group_stage_matches = [
     ("Feyenoord", "Lazio", "3-1"),
     ("Barcelona", "Shakhtar Donetsk", "2-1"),
     ("Celtic", "Atletico Madrid", "2-2"),
-    ("Paris Saint-Germain", "AC Milan", "3-0"),
+    ("Paris Saint-Germain", "Milan", "3-0"),
     ("Newcastle", "Borussia Dortmund", "0-1"),
     ("RB Leipzig", "Crvena zvezda", "3-1"),
     ("Young Boys", "Manchester City", "1-3"),
@@ -109,7 +109,7 @@ group_stage_matches = [
     ("Shakhtar Donetsk", "Barcelona", "1-0"),
     ("Atletico Madrid", "Celtic", "6-0"),
     ("Lazio", "Feyenoord", "1-0"),
-    ("AC Milan", "Paris Saint-Germain", "2-1"),
+    ("Milan", "Paris Saint-Germain", "2-1"),
     ("Manchester City", "Young Boys", "3-0"),
     ("Crvena zvezda", "RB Leipzig", "1-2"),
     ("Porto", "Royal Antwerp", "2-0"),
@@ -125,7 +125,7 @@ group_stage_matches = [
     ("Shakhtar Donetsk", "Royal Antwerp", "1-0"),
     ("Feyenoord", "Atletico Madrid", "1-3"),
     ("Paris Saint-Germain", "Newcastle", "1-1"),
-    ("AC Milan", "Borussia Dortmund", "1-3"),
+    ("Milan", "Borussia Dortmund", "1-3"),
     ("Manchester City", "RB Leipzig", "3-2"),
     ("Young Boys", "Crvena zvezda", "2-0"),
     ("Barcelona", "Porto", "2-1"),
@@ -150,7 +150,7 @@ group_stage_matches = [
     ("Atletico Madrid", "Lazio", "2-0"),
     ("Celtic", "Feyenoord", "2-1"),
     ("Borussia Dortmund", "Paris Saint-Germain", "1-1"),
-    ("Newcastle", "AC Milan", "1-2"),
+    ("Newcastle", "Milan", "1-2"),
     ("Porto", "Shakhtar Donetsk", "5-3"),
     ("Royal Antwerp", "Barcelona", "3-2")
 

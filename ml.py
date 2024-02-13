@@ -30,8 +30,10 @@ mapeo_equipos = {
     'Bayern': 'Bayern Munich',  # Añadido para considerar variaciones
     'Qarabağ': 'Qarabag',
     'Atlético Madrid': 'Atletico Madrid',
+    'Atlético': 'Atletico Madrid', 
     'Spartak Moskva': 'Spartak Moscow',
-    'Inter de Milán': 'Inter Milan',
+    'Inter Milan': 'Inter Milan',
+    'Inter': 'Inter Milan',
     'Lyon': 'Olympique Lyonnais',
     'Nápoles': 'Napoli',
     'Salzburgo': 'RB Salzburg',
@@ -54,7 +56,6 @@ mapeo_equipos = {
     'Club Brugge': 'Club Brugge KV',
     'Royal Antwerp': 'Royal Antwerp FC',
     'Union Berlin': 'Union Berlin',
-    'AC Milan': 'AC Milan',
     'Newcastle': 'Newcastle United',
     'Feyenoord': 'Feyenoord Rotterdam',
     'Celtic': 'Celtic FC',
@@ -108,10 +109,13 @@ modelo.fit(X_train, y_train)
 
 # Cargar y procesar datos de la temporada 23-24 para predicción
 df_23_24 = cargar_y_procesar_temporada('23-24/23-24.csv')
+df_23_24['equipo_local'] = df_23_24['equipo_local'].apply(unificar_nombres)
+df_23_24['equipo_visitante'] = df_23_24['equipo_visitante'].apply(unificar_nombres)
 df_23_24['equipo_local_encoded'] = le.transform(df_23_24['equipo_local'])
 df_23_24['equipo_visitante_encoded'] = le.transform(df_23_24['equipo_visitante'])
 
 X_23_24 = df_23_24[['equipo_local_encoded', 'equipo_visitante_encoded']]
+
 
 # Realizar predicciones para la temporada 23-24
 predicciones_ida_23_24 = modelo.predict(X_23_24)
