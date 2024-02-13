@@ -1,9 +1,7 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import LabelEncoder
+import os
 
-# Mapeo de equipos proporcionado
+# Corrección y expansión del mapeo de equipos basado en la lista proporcionada
 mapeo_equipos = {
     'Man City': 'Manchester City',
     'Paris': 'Paris Saint-Germain',
@@ -90,7 +88,7 @@ mapeo_equipos = {
     'Leverkusen': 'Bayer Leverkusen',
     'Liverpool': 'Liverpool',
     'Villarreal': 'Villarreal',
-    'Milan': 'Milan',
+    'Milan': 'AC Milan',
     'Tottenham': 'Tottenham Hotspur',
     'Roma': 'AS Roma',
     'Inter de Milán': 'Inter Milan',
@@ -138,60 +136,32 @@ mapeo_equipos = {
 
 # Función para aplicar el mapeo a los nombres de los equipos
 def unificar_nombres(equipo):
-    return mapeo_equipos.get(equipo, equipo)
+    return mapeo_equipos.get(equipo, "Equipo no mapeado: " + equipo)
 
-# Cargar y procesar datos de temporadas anteriores
-def cargar_y_procesar_temporada(ruta_archivo):
-    df_temp = pd.read_csv(ruta_archivo)
-    df_temp['equipo_local'] = df_temp['equipo_local'].apply(unificar_nombres)
-    df_temp['equipo_visitante'] = df_temp['equipo_visitante'].apply(unificar_nombres)
-    return df_temp
-
-# Lista de rutas de archivos CSV para temporadas anteriores
-archivos_temporadas = [
+# Rutas a los archivos CSV
+archivos_csv = [
     '13-14/13-14.csv', '14-15/14-15.csv', '15-16/15-16.csv', '16-17/16-17.csv', '17-18/17-18.csv', '18-19/18-19.csv', '19-20/19-20.csv', '20-21/20-21.csv', '21-22/21-22.csv', '22-23/22-23.csv'
 ]
 
 
-# Cargar, procesar y concatenar todos los datos de temporadas anteriores
-df_todas_temporadas = pd.concat([cargar_y_procesar_temporada(archivo) for archivo in archivos_temporadas])
+# Inicializar un conjunto para almacenar todos los equipos únicos
+equipos_unicos = set()
 
-# Preprocesamiento: Convertir nombres de equipos a valores numéricos
-le = LabelEncoder()
-df_todas_temporadas['equipo_local_encoded'] = le.fit_transform(df_todas_temporadas['equipo_local'])
-df_todas_temporadas['equipo_visitante_encoded'] = le.transform(df_todas_temporadas['equipo_visitante'])
+# Procesar cada archivo CSV
+for archivo in archivos_csv:
+    df = pd.read_csv(archivo)
+    # Asumiendo que las columnas se llaman 'equipo_local' y 'equipo_visitante'
+    df['equipo_local'] = df['equipo_local'].apply(unificar_nombres)
+    df['equipo_visitante'] = df['equipo_visitante'].apply(unificar_nombres)
+    equipos_unicos.update(df['equipo_local'].unique())
+    equipos_unicos.update(df['equipo_visitante'].unique())
 
-# Asumimos que 'resultado_ida' es la columna objetivo para predecir
-df_todas_temporadas['resultado_ida_encoded'] = le.fit_transform(df_todas_temporadas['resultado_ida'])
+# Verificar si todos los equipos han sido mapeados
+equipos_no_mapeados = [equipo for equipo in equipos_unicos if equipo.startswith("Equipo no mapeado: ")]
+if equipos_no_mapeados:
+    print("Equipos no mapeados encontrados:")
+    for equipo in equipos_no_mapeados:
+        print(equipo)
+else:
+    print("Todos los equipos han sido correctamente mapeados.")
 
-# Preparación de los datos para el entrenamiento
-X = df_todas_temporadas[['equipo_local_encoded', 'equipo_visitante_encoded']]
-y = df_todas_temporadas['resultado_ida_encoded']
-
-# División de los datos en conjuntos de entrenamiento y prueba
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Entrenamiento del modelo RandomForest
-modelo = RandomForestClassifier(n_estimators=100, random_state=42)
-modelo.fit(X_train, y_train)
-
-# Cargar y procesar datos de la temporada 23-24 para predicción
-df_23_24 = cargar_y_procesar_temporada('23-24/23-24.csv')
-df_23_24['equipo_local'] = df_23_24['equipo_local'].apply(unificar_nombres)
-df_23_24['equipo_visitante'] = df_23_24['equipo_visitante'].apply(unificar_nombres)
-df_23_24['equipo_local_encoded'] = le.transform(df_23_24['equipo_local'])
-df_23_24['equipo_visitante_encoded'] = le.transform(df_23_24['equipo_visitante'])
-
-X_23_24 = df_23_24[['equipo_local_encoded', 'equipo_visitante_encoded']]
-
-
-# Realizar predicciones para la temporada 23-24
-predicciones_ida_23_24 = modelo.predict(X_23_24)
-
-# Convertir predicciones numéricas a etiquetas legibles
-predicciones_ida_23_24 = le.inverse_transform(predicciones_ida_23_24)
-
-# Mostrar predicciones
-print("Predicciones de resultados de ida para octavos de final de la temporada 23-24:")
-for i, pred in enumerate(predicciones_ida_23_24):
-    print(f"Partido {i+1}: Resultado de ida predicho - {pred}")
