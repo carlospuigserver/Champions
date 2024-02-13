@@ -158,41 +158,45 @@ archivos_temporadas = [
 
 
 df_todas_temporadas = pd.concat([cargar_y_procesar_temporada(archivo) for archivo in archivos_temporadas])
-
 # Eliminando filas con NaN en las columnas relevantes en df_todas_temporadas
 df_todas_temporadas.dropna(subset=['resultado_ida', 'equipo_local', 'equipo_visitante'], inplace=True)
 
-# Ahora, cargamos los datos específicos de la temporada 23-24
+# Cargando los datos específicos de la temporada 23-24
 ruta_archivo_23_24 = '23-24/23-24.csv'  # Ajusta la ruta según sea necesario
 df_23_24 = pd.read_csv(ruta_archivo_23_24)
 df_23_24['equipo_local'] = df_23_24['equipo_local'].apply(unificar_nombres)
 df_23_24['equipo_visitante'] = df_23_24['equipo_visitante'].apply(unificar_nombres)
 
-# Eliminando filas con NaN en df_23_24 también
-df_23_24.dropna(subset=['equipo_local', 'equipo_visitante'], inplace=True)
+# Filtrando para octavos de final de la temporada 23-24
+df_23_24_octavos = df_23_24[df_23_24['fase'] == 'octavos']
 
+# Preparación de los datos para el modelo
 X = df_todas_temporadas[['equipo_local', 'equipo_visitante']]
 y = df_todas_temporadas['resultado_ida']
 
+# División de los datos en conjuntos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-column_transformer = ColumnTransformer(
-    transformers=[
-        ('one_hot', OneHotEncoder(handle_unknown='ignore'), ['equipo_local', 'equipo_visitante'])
-    ],
-    remainder='passthrough'
-)
+# Creando el pipeline con OneHotEncoder y RandomForestClassifier
+column_transformer = ColumnTransformer([
+    ('one_hot', OneHotEncoder(handle_unknown='ignore'), ['equipo_local', 'equipo_visitante'])
+], remainder='passthrough')
 
-pipeline = Pipeline(steps=[
+pipeline = Pipeline([
     ('one_hot_encoder', column_transformer),
     ('classifier', RandomForestClassifier(n_estimators=100, random_state=42))
 ])
 
+# Entrenamiento del modelo
 pipeline.fit(X_train, y_train)
 
-X_23_24 = df_23_24[['equipo_local', 'equipo_visitante']]
-predicciones_ida_23_24 = pipeline.predict(X_23_24)
+# Preparando los datos de octavos para la predicción
+X_23_24_octavos = df_23_24_octavos[['equipo_local', 'equipo_visitante']]
 
+# Realizando predicciones
+predicciones_ida_23_24 = pipeline.predict(X_23_24_octavos)
+
+# Mostrando predicciones con nombres de equipos
 print("Predicciones de resultados de ida para octavos de final de la temporada 23-24:")
-for i, pred in enumerate(predicciones_ida_23_24):
-    print(f"Partido {i+1}: Resultado de ida predicho - {pred}")
+for i, (index, row) in enumerate(df_23_24_octavos.iterrows()):
+    print(f"Partido {i+1}: {row['equipo_local']} vs {row['equipo_visitante']} - Resultado de ida predicho: {predicciones_ida_23_24[i]}")
