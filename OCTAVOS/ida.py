@@ -212,6 +212,6 @@ df_23_24.loc[df_23_24['fase'] == 'octavos', 'resultado_ida'] = df_23_24.loc[df_2
 df_23_24.drop(columns=['resultado_ida_pred'], inplace=True)
 
 # Guardar el DataFrame actualizado en un nuevo archivo CSV
-df_23_24.to_csv('OctavosIda.csv', index=False)
+df_23_24.to_csv('OCTAVOS/OctavosIda.csv', index=False)
 
 print("El archivo 'OctavosIda.csv' ha sido guardado correctamente. Solo los resultados de ida de los octavos de final han sido actualizados con las predicciones.")
