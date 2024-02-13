@@ -81,7 +81,7 @@ mapeo_equipos = {
     'Benfica': 'SL Benfica',
     'Borussia Dortmund': 'Borussia Dortmund',
     'Brugge': 'Club Brugge KV',
-        'Maccabi Haifa': 'Maccabi Haifa',
+    'Maccabi Haifa': 'Maccabi Haifa',
     'Besiktas': 'Besiktas',
     'Schalke': 'FC Schalke 04',
     'Viktoria Plzeň': 'Viktoria Plzen',
@@ -91,6 +91,8 @@ mapeo_equipos = {
     'Liverpool': 'Liverpool',
     'Villarreal': 'Villarreal',
     'Milan': 'Milan',
+    'Milán': 'Milan',
+    'AC Milan': 'Milan',
     'Tottenham': 'Tottenham Hotspur',
     'Roma': 'AS Roma',
     'Inter de Milán': 'Inter Milan',
@@ -195,3 +197,4 @@ predicciones_ida_23_24 = le.inverse_transform(predicciones_ida_23_24)
 print("Predicciones de resultados de ida para octavos de final de la temporada 23-24:")
 for i, pred in enumerate(predicciones_ida_23_24):
     print(f"Partido {i+1}: Resultado de ida predicho - {pred}")
+
