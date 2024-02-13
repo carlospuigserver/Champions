@@ -27,13 +27,13 @@ mapeo_equipos = {
     'Beşiktaş': 'Besiktas',
     'Leicester': 'Leicester City',
     'Bayern München': 'Bayern Munich',
-    'Bayern': 'Bayern Munich',  # Añadido para considerar variaciones
+    'Bayern': 'Bayern Munich',  
     'Qarabağ': 'Qarabag',
     'Atlético Madrid': 'Atletico Madrid',
     'Atlético': 'Atletico Madrid', 
     'Spartak Moskva': 'Spartak Moscow',
-    'Inter Milan': 'Inter Milan',
-    'Inter': 'Inter Milan',
+    'Inter Milan': 'Inter',
+    'Inter': 'Inter',
     'Lyon': 'Olympique Lyonnais',
     'Nápoles': 'Napoli',
     'Salzburgo': 'RB Salzburg',
@@ -60,11 +60,14 @@ mapeo_equipos = {
     'Feyenoord': 'Feyenoord Rotterdam',
     'Celtic': 'Celtic FC',
     'PSV Eindhoven': 'PSV Eindhoven',
+    'AC Milan': 'Milan',
+    'Milan': 'Milan',
     'Lens': 'RC Lens',
     'Braga': 'SC Braga',
     'Salzburg': 'RB Salzburg',
     'Real Sociedad': 'Real Sociedad',
     'Copenhagen': 'FC Copenhagen',
+    
 }
 
 
