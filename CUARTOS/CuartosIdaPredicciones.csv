@@ -103,7 +103,7 @@ id_partido,equipo_local,equipo_visitante,resultado_final,fase,resultado_ida,resu
 102.0,SS Lazio,FC Bayern Munich,,octavos,1-4,1-2
 103.0,FC Copenhagen,Manchester City,,octavos,1-2,0-7
 104.0,RB Leipzig,Real Madrid,,octavos,0-2,1-3
-,FC Barcelona,Real Madrid,,cuartos,,
-,Manchester City,Real Sociedad,,cuartos,,
-,FC Bayern Munich,Borussia Dortmund,,cuartos,,
-,Atletico Madrid,Porto,,cuartos,,
+,FC Barcelona,Real Madrid,,cuartos,1-3,
+,Manchester City,Real Sociedad,,cuartos,0-0,
+,FC Bayern Munich,Borussia Dortmund,,cuartos,3-1,
+,Atletico Madrid,Porto,,cuartos,4-1,

@@ -282,3 +282,4 @@ df_cuartos_actualizado.drop(columns=['resultado_ida_pred'], inplace=True)
 df_cuartos_actualizado.to_csv('CUARTOS/CuartosIdaPredicciones.csv', index=False)
 
 print("Las predicciones para la ida de los cuartos de final han sido guardadas en 'CUARTOS/CuartosIdaPredicciones.csv'.")
+

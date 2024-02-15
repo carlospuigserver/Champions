@@ -215,3 +215,5 @@ df_23_24.drop(columns=['resultado_ida_pred'], inplace=True)
 df_23_24.to_csv('OCTAVOS/OctavosIda.csv', index=False)
 
 print("El archivo 'OctavosIda.csv' ha sido guardado correctamente. Solo los resultados de ida de los octavos de final han sido actualizados con las predicciones.")
+
+
