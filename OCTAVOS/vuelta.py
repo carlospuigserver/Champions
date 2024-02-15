@@ -1,11 +1,13 @@
 import pandas as pd
+import numpy as np
+import random
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
-# Mapeo de equipos proporcionado
+# Asumiendo que el mapeo de equipos ya está definido en mapeo_equipos
 mapeo_equipos = {
     'Man City': 'Manchester City',
     'Paris': 'Paris Saint-Germain',
@@ -139,10 +141,13 @@ mapeo_equipos = {
     'Young Boys': 'BSC Young Boys',
     # Continuar con el mapeo para el resto de equipos según sea necesario
 }
-
 # Función para aplicar el mapeo a los nombres de los equipos
 def unificar_nombres(equipo):
     return mapeo_equipos.get(equipo, equipo)
+
+# Función para simular una tanda de penaltis y decidir el ganador
+def simular_penaltis():
+    return random.choice(['local', 'visitante'])
 
 # Cargar y procesar datos de temporadas anteriores
 def cargar_y_procesar_temporada(ruta_archivo):
@@ -211,7 +216,31 @@ df_23_24.loc[df_23_24['fase'] == 'octavos', 'resultado_vuelta'] = df_23_24.loc[d
 # Eliminar la columna temporal de predicciones
 df_23_24.drop(columns=['resultado_vuelta_pred'], inplace=True)
 
+# Aquí inicia la nueva sección para simular los cuartos de final
+clasificados = []
+for _, row in df_23_24.iterrows():
+    if row['fase'] == 'octavos':
+        local, visitante = map(int, row['resultado_vuelta'].split('-'))
+        if local > visitante:
+            clasificados.append(row['equipo_local'])
+        elif visitante > local:
+            clasificados.append(row['equipo_visitante'])
+        else:  # Empate, decidir por penaltis
+            ganador_penaltis = simular_penaltis()
+            if ganador_penaltis == 'local':
+                clasificados.append(row['equipo_local'])
+            else:
+                clasificados.append(row['equipo_visitante'])
+
+random.shuffle(clasificados)
+cruces_cuartos = [(clasificados[i], clasificados[i+1]) for i in range(0, len(clasificados), 2)]
+
+# Añadir los cruces de cuartos al DataFrame original
+for local, visitante in cruces_cuartos:
+    nuevo_registro = pd.Series({'equipo_local': local, 'equipo_visitante': visitante, 'fase': 'cuartos', 'resultado_vuelta': np.nan})
+    df_23_24 = df_23_24._append(nuevo_registro, ignore_index=True)
+
 # Guardar el DataFrame actualizado en un nuevo archivo CSV
 df_23_24.to_csv('OCTAVOS/OctavosVuelta.csv', index=False)
 
-print("El archivo 'OctavosVulta.csv' ha sido guardado correctamente. Solo los resultados de ida de los octavos de final han sido actualizados con las predicciones.")
+print("El archivo 'OctavosVuelta.csv' ha sido guardado correctamente con los cruces de cuartos de final.")
