@@ -243,4 +243,42 @@ for local, visitante in cruces_cuartos:
 # Guardar el DataFrame actualizado en un nuevo archivo CSV
 df_23_24.to_csv('OCTAVOS/OctavosVuelta.csv', index=False)
 
-print("El archivo 'OctavosVuelta.csv' ha sido guardado correctamente con los cruces de cuartos de final.")
+
+
+
+
+# Ahora, cargamos el DataFrame actualizado para trabajar con los cruces de cuartos de final
+df_cuartos_actualizado = pd.read_csv('OCTAVOS/OctavosVuelta.csv')
+
+# Filtramos solo las filas correspondientes a los cuartos de final
+df_cuartos = df_cuartos_actualizado[df_cuartos_actualizado['fase'] == 'cuartos'].reset_index(drop=True)
+
+# Preparamos los datos para la predicción de la ida de cuartos
+X_cuartos_ida = df_cuartos[['equipo_local', 'equipo_visitante']]
+
+# Realizamos las predicciones de la ida de los cuartos de final
+predicciones_ida_cuartos = pipeline.predict(X_cuartos_ida)
+
+# Creamos un DataFrame para las predicciones de la ida de cuartos
+df_predicciones_ida_cuartos = pd.DataFrame({
+    'equipo_local': df_cuartos['equipo_local'],
+    'equipo_visitante': df_cuartos['equipo_visitante'],
+    'resultado_ida_pred': predicciones_ida_cuartos
+})
+
+# Mostramos las predicciones para la ida de los cuartos de final
+print(df_predicciones_ida_cuartos)
+
+# Si deseas actualizar el DataFrame original con estas predicciones:
+df_cuartos_actualizado = pd.merge(df_cuartos_actualizado, df_predicciones_ida_cuartos, on=['equipo_local', 'equipo_visitante'], how='left')
+
+# Para aquellos partidos en la fase de cuartos, actualizamos 'resultado_ida' con las predicciones
+df_cuartos_actualizado.loc[df_cuartos_actualizado['fase'] == 'cuartos', 'resultado_ida'] = df_cuartos_actualizado.loc[df_cuartos_actualizado['fase'] == 'cuartos', 'resultado_ida_pred']
+
+# Eliminamos la columna de predicciones temporales
+df_cuartos_actualizado.drop(columns=['resultado_ida_pred'], inplace=True)
+
+# Guardamos el DataFrame actualizado en un nuevo archivo CSV
+df_cuartos_actualizado.to_csv('CUARTOS/CuartosIdaPredicciones.csv', index=False)
+
+print("Las predicciones para la ida de los cuartos de final han sido guardadas en 'CUARTOS/CuartosIdaPredicciones.csv'.")
