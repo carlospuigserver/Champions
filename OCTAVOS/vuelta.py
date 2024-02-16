@@ -283,3 +283,45 @@ df_cuartos_actualizado.to_csv('CUARTOS/CuartosIdaPredicciones.csv', index=False)
 
 print("Las predicciones para la ida de los cuartos de final han sido guardadas en 'CUARTOS/CuartosIdaPredicciones.csv'.")
 
+
+
+# Entrenar los datos ahora con los resultados de la ida
+X = df_cuartos_actualizado[['equipo_local', 'equipo_visitante']]
+y = df_cuartos_actualizado['resultado_ida']
+
+# División de los datos en conjuntos de entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Tratar los valores faltantes en y_train
+y_train.fillna(0, inplace=True)  # Rellenar los valores faltantes con 0
+
+# Entrenamiento del modelo
+pipeline.fit(X_train, y_train)
+
+# Preparar los datos de los cuartos para la predicción de la vuelta
+X_cuartos_vuelta = df_cuartos_actualizado[['equipo_local', 'equipo_visitante']]
+predicciones_vuelta_cuartos = pipeline.predict(X_cuartos_vuelta)
+
+# Crear un DataFrame temporal para las predicciones de la vuelta de cuartos, asegurando que no se confunda con la ida
+df_predicciones_vuelta_cuartos = pd.DataFrame({
+    'equipo_local': df_cuartos_actualizado['equipo_local'],
+    'equipo_visitante': df_cuartos_actualizado['equipo_visitante'],
+    'resultado_vuelta_pred': predicciones_vuelta_cuartos
+})
+
+# Mostrar las predicciones para la vuelta de los cuartos de final
+print(df_predicciones_vuelta_cuartos)
+
+# Si deseas actualizar el DataFrame original con estas predicciones:
+df_cuartos_actualizado = pd.merge(df_cuartos_actualizado, df_predicciones_vuelta_cuartos, on=['equipo_local', 'equipo_visitante'], how='left')
+
+# Para aquellos partidos en la fase de cuartos, actualizamos 'resultado_vuelta' con las predicciones
+df_cuartos_actualizado.loc[df_cuartos_actualizado['fase'] == 'cuartos', 'resultado_vuelta'] = df_cuartos_actualizado.loc[df_cuartos_actualizado['fase'] == 'cuartos', 'resultado_vuelta_pred']
+
+# Eliminar la columna de predicciones temporales
+df_cuartos_actualizado.drop(columns=['resultado_vuelta_pred'], inplace=True)
+
+# Guardar el DataFrame actualizado en un nuevo archivo CSV
+df_cuartos_actualizado.to_csv('CUARTOS/CuartosVueltaPredicciones.csv', index=False)
+
+print("Las predicciones para la vuelta de los cuartos de final han sido guardadas en 'CUARTOS/CuartosVueltaPredicciones.csv'.")
