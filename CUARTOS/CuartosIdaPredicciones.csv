@@ -95,15 +95,15 @@ id_partido,equipo_local,equipo_visitante,resultado_final,fase,resultado_ida,resu
 94.0,Newcastle United,Milan,1-2,fase_de_grupos,,
 95.0,Porto,Shakhtar,5-3,fase_de_grupos,,
 96.0,Royal Antwerp FC,FC Barcelona,3-2,fase_de_grupos,,
-1.0,Porto,Arsenal,,octavos,0-2,3-1
-2.0,SSC Napoli,FC Barcelona,,octavos,1-2,1-3
-3.0,Paris Saint-Germain,Real Sociedad,,octavos,1-0,1-3
-4.0,Inter,Atletico Madrid,,octavos,1-0,0-0
-5.0,PSV Eindhoven,Borussia Dortmund,,octavos,2-1,1-0
-6.0,SS Lazio,FC Bayern Munich,,octavos,1-4,1-2
-7.0,FC Copenhagen,Manchester City,,octavos,1-1,0-7
-8.0,RB Leipzig,Real Madrid,,octavos,0-3,1-3
-,Porto,FC Barcelona,,cuartos,0-3,
-,FC Bayern Munich,Inter,,cuartos,0-1,
-,Manchester City,Real Madrid,,cuartos,1-3,
-,PSV Eindhoven,Real Sociedad,,cuartos,2-1,
+97.0,Porto,Arsenal,,octavos,0-2,3-1
+98.0,SSC Napoli,FC Barcelona,,octavos,1-2,1-3
+99.0,Paris Saint-Germain,Real Sociedad,,octavos,1-0,1-3
+100.0,Inter,Atletico Madrid,,octavos,1-0,0-0
+101.0,PSV Eindhoven,Borussia Dortmund,,octavos,2-1,1-0
+102.0,SS Lazio,FC Bayern Munich,,octavos,1-4,1-2
+103.0,FC Copenhagen,Manchester City,,octavos,1-1,0-7
+104.0,RB Leipzig,Real Madrid,,octavos,0-3,1-3
+105.0,Porto,Manchester City,,cuartos,0-7,
+106.0,PSV Eindhoven,Inter,,cuartos,0-1,
+107.0,Real Sociedad,Real Madrid,,cuartos,1-3,
+108.0,FC Bayern Munich,FC Barcelona,,cuartos,0-3,
