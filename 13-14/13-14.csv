@@ -1,5 +1,4 @@
-id_partido,equipo_local,equipo_visitante,resultado_final,fase,resultado_ida,resultado_vuelta
-3,Austria Wien,FC Porto,0-1,fase_de_grupos,,
+id_partido,equipo_local,equipo_visitante,resultado_final,fase
 4,Atlético de Madrid,Zenit,3-1,fase_de_grupos,,
 5,Chelsea,Basel,1-2,fase_de_grupos,,
 6,Schalke,FCSB,3-0,fase_de_grupos,,
@@ -9,7 +8,7 @@ id_partido,equipo_local,equipo_visitante,resultado_final,fase,resultado_ida,resu
 10,Marseille,Arsenal,1-2,fase_de_grupos,,
 11,Viktoria Plzeň,Man City,0-3,fase_de_grupos,,
 12,Benfica,Anderlecht,2-0,fase_de_grupos,,
-13,Copenhagen,Juventus,1-1,fase_de_grupos,,
+13,Copenhagen,Juventus,1-1,fase_de_grupos,
 14,Galatasaray,Real Madrid,1-6,fase_de_grupos,,
 15,Man United,Leverkusen,4-2,fase_de_grupos,,
 16,Real Sociedad,Shakhtar Donetsk,0-2,fase_de_grupos,,
