@@ -1,11 +1,12 @@
 import pandas as pd
-import numpy as np
-import random
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+import random
+import numpy as np
+
 
 # Función para unificar nombres
 def unificar_nombres(df):
@@ -146,39 +147,31 @@ def unificar_nombres(df):
     df['equipo_visitante'] = df['equipo_visitante'].apply(lambda x: mapeo_equipos.get(x, x))
     return df
 
-# Cargar y combinar todos los datos de entrenamiento necesarios
+
 archivos_temporadas = [
     '13-14/13-14.csv', '14-15/14-15.csv', '15-16/15-16.csv', '16-17/16-17.csv', 
     '17-18/17-18.csv', '18-19/18-19.csv', '19-20/19-20.csv', '20-21/20-21.csv', 
     '21-22/21-22.csv', '22-23/22-23.csv'
 ]
 
-# Cargar datos de temporadas anteriores y unificar nombres
 df_todas_temporadas = pd.concat([pd.read_csv(archivo).pipe(unificar_nombres) for archivo in archivos_temporadas])
-
-# Cargar datos de la temporada actual para octavos y cuartos, ida y vuelta
 df_23_24_octavos_ida = pd.read_csv('OCTAVOS/OctavosIda.csv').pipe(unificar_nombres)
 df_23_24_octavos_vuelta = pd.read_csv('OCTAVOS/OctavosVuelta.csv').pipe(unificar_nombres)
 df_23_24_cuartos_ida = pd.read_csv('CUARTOS/CuartosIdaPredicciones.csv').pipe(unificar_nombres)
 df_23_24_cuartos_vuelta = pd.read_csv('CUARTOS/CuartosVuelta.csv').pipe(unificar_nombres)
 
-# Combinar todos los datos en un solo DataFrame
+# Preprocesamiento para eliminar filas con NaN en 'resultado_vuelta'
 df_entrenamiento_total = pd.concat([
-    df_todas_temporadas,
-    df_23_24_octavos_ida,
-    df_23_24_octavos_vuelta,
-    df_23_24_cuartos_ida,
-    df_23_24_cuartos_vuelta
-])
+    df_todas_temporadas, df_23_24_octavos_ida, df_23_24_octavos_vuelta, df_23_24_cuartos_ida, df_23_24_cuartos_vuelta
+]).dropna(subset=['resultado_ida'])
 
-# Eliminar posibles filas con valores NaN en 'resultado_vuelta'
-df_entrenamiento_total.dropna(subset=['resultado_vuelta'], inplace=True)
 
 # Preparar las características (X) y las etiquetas (y) para el entrenamiento
 X_total = df_entrenamiento_total[['equipo_local', 'equipo_visitante']]
-y_total = df_entrenamiento_total['resultado_vuelta'].astype(str)
+y_total = df_entrenamiento_total['resultado_ida'].astype(str)
 
-# Configurar el pipeline de entrenamiento
+
+# Crear el pipeline con OneHotEncoder y RandomForestClassifier
 column_transformer = ColumnTransformer([
     ('one_hot', OneHotEncoder(handle_unknown='ignore'), ['equipo_local', 'equipo_visitante'])
 ], remainder='passthrough')
@@ -188,24 +181,15 @@ pipeline = Pipeline([
     ('classifier', RandomForestClassifier(n_estimators=100, random_state=42))
 ])
 
-
-# Entrenar el modelo con los datos
+# Entrenar el modelo con estos datos
 pipeline.fit(X_total, y_total)
 
+# Realizar predicciones para la vuelta de cuartos de final
+df_semis = df_23_24_cuartos_vuelta.copy()  # Asegura trabajar sobre una copia para no modificar el original
+X_semis_ida = df_semis[['equipo_local', 'equipo_visitante']]
+predicciones_semis_ida = pipeline.predict(X_semis_ida)
 
+df_semis['resultado_ida'] = predicciones_semis_ida
 
-# Por ejemplo, si ya tienes df_semifinales_ida listo, puedes proceder así:
-X_semifinales_ida = df_semifinales[['equipo_local', 'equipo_visitante']]
-
-# Realizar las predicciones para la ida de las semifinales
-predicciones_semifinales_ida = pipeline.predict(X_semifinales_ida)
-
-
-df_semifinales['resultado_ida_pred'] = predicciones_semifinales_ida
-
-# Aquí puedes guardar el DataFrame actualizado con las predicciones de las semifinales a un nuevo CSV
-df_semifinales.to_csv('SEMIFINALES/SemifinalesIdaPredicciones.csv', index=False)
-
-print("Las predicciones para la ida de las semifinales han sido guardadas en 'SEMIFINALES/SemifinalesIdaPredicciones.csv'.")
-
-# A continuación, podrías preparar las predicciones para la vuelta de las semifinales de manera similar, una vez que se jueguen los partidos de ida y tengas los resultados.
+# Guardar las predicciones en un archivo CSV
+df_semis.to_csv('SEMIS/SemisIdaPredicciones.csv', index=False)
