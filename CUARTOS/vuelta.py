@@ -1,14 +1,13 @@
 import pandas as pd
-import numpy as np
-import random
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
-# Asumiendo que el mapeo de equipos ya está definido en mapeo_equipos
-mapeo_equipos = {
+# Función para unificar nombres
+def unificar_nombres(df):
+    mapeo_equipos = {
     'Man City': 'Manchester City',
     'Paris': 'Paris Saint-Germain',
     'FC Porto': 'Porto',
@@ -141,170 +140,30 @@ mapeo_equipos = {
     'Young Boys': 'BSC Young Boys',
     # Continuar con el mapeo para el resto de equipos según sea necesario
 }
-# Función para aplicar el mapeo a los nombres de los equipos
-def unificar_nombres(equipo):
-    return mapeo_equipos.get(equipo, equipo)
+    df['equipo_local'] = df['equipo_local'].apply(lambda x: mapeo_equipos.get(x, x))
+    df['equipo_visitante'] = df['equipo_visitante'].apply(lambda x: mapeo_equipos.get(x, x))
+    return df
 
-# Función para simular una tanda de penaltis y decidir el ganador
-def simular_penaltis():
-    return random.choice(['local', 'visitante'])
-
-# Cargar y procesar datos de temporadas anteriores
-def cargar_y_procesar_temporada(ruta_archivo):
-    df_temp = pd.read_csv(ruta_archivo)
-    df_temp['equipo_local'] = df_temp['equipo_local'].apply(unificar_nombres)
-    df_temp['equipo_visitante'] = df_temp['equipo_visitante'].apply(unificar_nombres)
-    return df_temp
-
-# Lista de rutas de archivos CSV para temporadas anteriores
+# Cargar y combinar todos los datos de entrenamiento necesarios
 archivos_temporadas = [
     '13-14/13-14.csv', '14-15/14-15.csv', '15-16/15-16.csv', '16-17/16-17.csv', 
     '17-18/17-18.csv', '18-19/18-19.csv', '19-20/19-20.csv', '20-21/20-21.csv', 
     '21-22/21-22.csv', '22-23/22-23.csv'
 ]
 
-df_todas_temporadas = pd.concat([cargar_y_procesar_temporada(archivo) for archivo in archivos_temporadas])
-df_todas_temporadas.dropna(subset=['resultado_vuelta', 'equipo_local', 'equipo_visitante'], inplace=True)
-
-# Cargando los datos específicos de la temporada 23-24
-ruta_archivo_23_24 = 'OCTAVOS/OctavosIda.csv'
-df_23_24 = pd.read_csv(ruta_archivo_23_24)
-df_23_24['equipo_local'] = df_23_24['equipo_local'].apply(unificar_nombres)
-df_23_24['equipo_visitante'] = df_23_24['equipo_visitante'].apply(unificar_nombres)
-
-# Filtrando para octavos de final de la temporada 23-24
-df_23_24_octavos = df_23_24[df_23_24['fase'] == 'octavos']
-
-# Preparación de los datos para el modelo
-X = df_todas_temporadas[['equipo_local', 'equipo_visitante']]
-y = df_todas_temporadas['resultado_vuelta']
-
-# División de los datos en conjuntos de entrenamiento y prueba
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Creando el pipeline con OneHotEncoder y RandomForestClassifier
-column_transformer = ColumnTransformer([
-    ('one_hot', OneHotEncoder(handle_unknown='ignore'), ['equipo_local', 'equipo_visitante'])
-], remainder='passthrough')
-
-pipeline = Pipeline([
-    ('one_hot_encoder', column_transformer),
-    ('classifier', RandomForestClassifier(n_estimators=100, random_state=42))
-])
-
-# Entrenamiento del modelo
-pipeline.fit(X_train, y_train)
-
-# Preparando los datos de octavos para la predicción
-X_23_24_octavos = df_23_24_octavos[['equipo_local', 'equipo_visitante']]
-
-# Realizando predicciones
-predicciones_vuelta_23_24 = pipeline.predict(X_23_24_octavos)
-
-# Crear un DataFrame temporal para las predicciones
-df_predicciones = pd.DataFrame({
-    'id_partido': df_23_24_octavos['id_partido'].values,
-    'resultado_vuelta_pred': predicciones_vuelta_23_24
-})
-
-# Fusionar el DataFrame original de la temporada 23-24 con las predicciones
-df_23_24 = pd.merge(df_23_24, df_predicciones, on='id_partido', how='left')
-
-# Actualizar solo las filas de los octavos de final con las predicciones de 'resultado_vuelta'
-df_23_24.loc[df_23_24['fase'] == 'octavos', 'resultado_vuelta'] = df_23_24.loc[df_23_24['fase'] == 'octavos', 'resultado_vuelta_pred']
-
-# Eliminar la columna temporal de predicciones
-df_23_24.drop(columns=['resultado_vuelta_pred'], inplace=True)
-
-# Aquí inicia la nueva sección para simular los cuartos de final
-clasificados = []
-for _, row in df_23_24.iterrows():
-    if row['fase'] == 'octavos':
-        local, visitante = map(int, row['resultado_vuelta'].split('-'))
-        if local > visitante:
-            clasificados.append(row['equipo_local'])
-        elif visitante > local:
-            clasificados.append(row['equipo_visitante'])
-        else:  # Empate, decidir por penaltis
-            ganador_penaltis = simular_penaltis()
-            if ganador_penaltis == 'local':
-                clasificados.append(row['equipo_local'])
-            else:
-                clasificados.append(row['equipo_visitante'])
-
-random.shuffle(clasificados)
-cruces_cuartos = [(clasificados[i], clasificados[i+1]) for i in range(0, len(clasificados), 2)]
-
-# Añadir los cruces de cuartos al DataFrame original
-for local, visitante in cruces_cuartos:
-    nuevo_registro = pd.Series({'equipo_local': local, 'equipo_visitante': visitante, 'fase': 'cuartos', 'resultado_vuelta': np.nan})
-    df_23_24 = df_23_24._append(nuevo_registro, ignore_index=True)
-
-# Guardar el DataFrame actualizado en un nuevo archivo CSV
-df_23_24.to_csv('OCTAVOS/OctavosVuelta.csv', index=False)
-
-
-
-
-
-# Ahora, cargamos el DataFrame actualizado para trabajar con los cruces de cuartos de final
-df_cuartos_actualizado = pd.read_csv('OCTAVOS/OctavosVuelta.csv')
-
-# Filtramos solo las filas correspondientes a los cuartos de final
-df_cuartos = df_cuartos_actualizado[df_cuartos_actualizado['fase'] == 'cuartos'].reset_index(drop=True)
-
-# Preparamos los datos para la predicción de la ida de cuartos
-X_cuartos_ida = df_cuartos[['equipo_local', 'equipo_visitante']]
-
-# Realizamos las predicciones de la ida de los cuartos de final
-predicciones_ida_cuartos = pipeline.predict(X_cuartos_ida)
-
-# Creamos un DataFrame para las predicciones de la ida de cuartos
-df_predicciones_ida_cuartos = pd.DataFrame({
-    'equipo_local': df_cuartos['equipo_local'],
-    'equipo_visitante': df_cuartos['equipo_visitante'],
-    'resultado_ida_pred': predicciones_ida_cuartos
-})
-
-# Mostramos las predicciones para la ida de los cuartos de final
-print(df_predicciones_ida_cuartos)
-
-# Si deseas actualizar el DataFrame original con estas predicciones:
-df_cuartos_actualizado = pd.merge(df_cuartos_actualizado, df_predicciones_ida_cuartos, on=['equipo_local', 'equipo_visitante'], how='left')
-
-# Para aquellos partidos en la fase de cuartos, actualizamos 'resultado_ida' con las predicciones
-df_cuartos_actualizado.loc[df_cuartos_actualizado['fase'] == 'cuartos', 'resultado_ida'] = df_cuartos_actualizado.loc[df_cuartos_actualizado['fase'] == 'cuartos', 'resultado_ida_pred']
-
-# Eliminamos la columna de predicciones temporales
-df_cuartos_actualizado.drop(columns=['resultado_ida_pred'], inplace=True)
-
-# Guardamos el DataFrame actualizado en un nuevo archivo CSV
-df_cuartos_actualizado.to_csv('CUARTOS/CuartosIdaPredicciones.csv', index=False)
-
-print("Las predicciones para la ida de los cuartos de final han sido guardadas en 'CUARTOS/CuartosIdaPredicciones.csv'.")
-
-
-
-
-
-
-df_todas_temporadas = pd.concat([cargar_y_procesar_temporada(archivo) for archivo in archivos_temporadas])
-df_23_24_octavos_ida = pd.read_csv('OCTAVOS/OctavosIda.csv').applymap(unificar_nombres)
-df_23_24_octavos_vuelta = pd.read_csv('OCTAVOS/OctavosVuelta.csv').applymap(unificar_nombres)
-df_23_24_cuartos_ida = pd.read_csv('CUARTOS/CuartosIdaPredicciones.csv').applymap(unificar_nombres)
+df_todas_temporadas = pd.concat([pd.read_csv(archivo).pipe(unificar_nombres) for archivo in archivos_temporadas])
+df_23_24_octavos_ida = pd.read_csv('OCTAVOS/OctavosIda.csv').pipe(unificar_nombres)
+df_23_24_octavos_vuelta = pd.read_csv('OCTAVOS/OctavosVuelta.csv').pipe(unificar_nombres)
+df_23_24_cuartos_ida = pd.read_csv('CUARTOS/CuartosIdaPredicciones.csv').pipe(unificar_nombres)
 
 # Preprocesamiento para eliminar filas con NaN en 'resultado_vuelta'
-df_todas_temporadas.dropna(subset=['resultado_vuelta'], inplace=True)
-df_23_24_octavos_ida.dropna(subset=['resultado_vuelta'], inplace=True)
-df_23_24_octavos_vuelta.dropna(subset=['resultado_vuelta'], inplace=True)
-df_23_24_cuartos_ida.dropna(subset=['resultado_vuelta'], inplace=True)
-
-# Combinar todos los DataFrames para el entrenamiento
-df_entrenamiento_total = pd.concat([df_todas_temporadas, df_23_24_octavos_ida, df_23_24_octavos_vuelta, df_23_24_cuartos_ida])
+df_entrenamiento_total = pd.concat([
+    df_todas_temporadas, df_23_24_octavos_ida, df_23_24_octavos_vuelta, df_23_24_cuartos_ida
+]).dropna(subset=['resultado_vuelta'])
 
 # Preparar las características (X) y las etiquetas (y) para el entrenamiento
 X_total = df_entrenamiento_total[['equipo_local', 'equipo_visitante']]
-y_total = df_entrenamiento_total['resultado_vuelta'].astype(str)  # Asegura que y es string
+y_total = df_entrenamiento_total['resultado_vuelta'].astype(str)
 
 # Crear el pipeline con OneHotEncoder y RandomForestClassifier
 column_transformer = ColumnTransformer([
@@ -319,16 +178,15 @@ pipeline = Pipeline([
 # Entrenar el modelo con estos datos
 pipeline.fit(X_total, y_total)
 
-# Asegurarse de filtrar df_cuartos_actualizado para incluir solo partidos de vuelta de cuartos antes de predecir
-# Esto depende de cómo esté estructurado tu DataFrame y puede necesitar ajustes
-
 # Realizar predicciones para la vuelta de cuartos de final
+df_cuartos = df_23_24_cuartos_ida.copy()  # Asegura trabajar sobre una copia para no modificar el original
 X_cuartos_vuelta = df_cuartos[['equipo_local', 'equipo_visitante']]
 predicciones_vuelta_cuartos = pipeline.predict(X_cuartos_vuelta)
 
-# Actualizar el DataFrame con las predicciones de vuelta
-df_cuartos['resultado_vuelta_pred'] = predicciones_vuelta_cuartos
+# Actualizar el DataFrame df_23_24_cuartos_ida con las predicciones de vuelta
+df_cuartos['resultado_vuelta'] = predicciones_vuelta_cuartos
 
-# Mostrar y guardar las predicciones
-print(df_cuartos[['equipo_local', 'equipo_visitante', 'resultado_vuelta_pred']])
-df_cuartos.to_csv('CUARTOS/CuartosVueltaPrediccionesFinal.csv', index=False)
+# Guardar el DataFrame actualizado
+df_cuartos.to_csv('CUARTOS/CuartosConVueltaPredicciones.csv', index=False)
+
+print("Las predicciones de vuelta han sido actualizadas y guardadas en 'CUARTOS/CuartosConVueltaPredicciones.csv'.")
