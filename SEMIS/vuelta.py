@@ -196,7 +196,7 @@ df_semis_vuelta['resultado_vuelta'] = predicciones_vuelta_semis
 ganadores_semis = []
 
 for index, row in df_semis_vuelta.iterrows():
-    if row['fase'] == 'semis':
+    if row['fase'] == 'semifinales':
         resultado = row['resultado_vuelta'].split('-')
         local = int(resultado[0])
         visitante = int(resultado[1])
