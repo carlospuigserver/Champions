@@ -4,6 +4,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+import random
+import numpy as np
+
 
 # Función para unificar nombres
 def unificar_nombres(df):
@@ -144,6 +147,8 @@ def unificar_nombres(df):
     df['equipo_visitante'] = df['equipo_visitante'].apply(lambda x: mapeo_equipos.get(x, x))
     return df
 
+def simular_penaltis():
+    return random.choice(['local', 'visitante'])
 # Cargar y combinar todos los datos de entrenamiento necesarios
 archivos_temporadas = [
     '13-14/13-14.csv', '14-15/14-15.csv', '15-16/15-16.csv', '16-17/16-17.csv', 
@@ -183,10 +188,41 @@ df_cuartos = df_23_24_cuartos_ida.copy()  # Asegura trabajar sobre una copia par
 X_cuartos_vuelta = df_cuartos[['equipo_local', 'equipo_visitante']]
 predicciones_vuelta_cuartos = pipeline.predict(X_cuartos_vuelta)
 
-# Actualizar el DataFrame df_23_24_cuartos_ida con las predicciones de vuelta
 df_cuartos['resultado_vuelta'] = predicciones_vuelta_cuartos
 
-# Guardar el DataFrame actualizado
-df_cuartos.to_csv('CUARTOS/CuartosConVueltaPredicciones.csv', index=False)
 
-print("Las predicciones de vuelta han sido actualizadas y guardadas en 'CUARTOS/CuartosConVueltaPredicciones.csv'.")
+ganadores_cuartos = []
+
+for index, row in df_cuartos.iterrows():
+    if row['fase'] == 'cuartos':
+        resultado = row['resultado_vuelta'].split('-')
+        local = int(resultado[0])
+        visitante = int(resultado[1])
+        
+        if local > visitante:
+            ganador = row['equipo_local']
+        elif visitante > local:
+            ganador = row['equipo_visitante']
+        else:
+            ganador_penaltis = simular_penaltis()
+            ganador = row['equipo_local'] if ganador_penaltis == 'local' else row['equipo_visitante']
+            
+        ganadores_cuartos.append(ganador)
+
+# Ahora que tenemos los ganadores, los mezclamos y creamos los emparejamientos para semifinales
+random.shuffle(ganadores_cuartos)
+semifinales = [(ganadores_cuartos[i], ganadores_cuartos[i + 1]) for i in range(0, len(ganadores_cuartos), 2)]
+
+# Creamos el DataFrame de semifinales
+df_semifinales = pd.DataFrame(semifinales, columns=['equipo_local', 'equipo_visitante'])
+df_semifinales['fase'] = 'semifinales'
+df_semifinales['resultado_ida'] = np.nan
+df_semifinales['resultado_vuelta'] = np.nan
+
+# Opcional: Puedes combinar df_cuartos y df_semifinales si necesitas un solo DataFrame
+df_combinado = pd.concat([df_cuartos, df_semifinales]).reset_index(drop=True)
+
+# Guardamos el nuevo DataFrame que incluye cuartos actualizados y semifinales
+df_combinado.to_csv('CUARTOS/CuartosVuelta.csv', index=False)
+
+print("Los cuartos actualizados y las semifinales han sido guardados en 'CUARTOS/CuartosVuelta.csv'.")

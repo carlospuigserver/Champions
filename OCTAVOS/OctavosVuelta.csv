@@ -103,7 +103,7 @@ id_partido,equipo_local,equipo_visitante,resultado_final,fase,resultado_ida,resu
 6.0,SS Lazio,FC Bayern Munich,,octavos,1-4,1-2
 7.0,FC Copenhagen,Manchester City,,octavos,1-1,0-7
 8.0,RB Leipzig,Real Madrid,,octavos,0-3,1-3
-,FC Barcelona,Porto,,cuartos,,
-,PSV Eindhoven,Real Madrid,,cuartos,,
-,Real Sociedad,FC Bayern Munich,,cuartos,,
-,Manchester City,Atletico Madrid,,cuartos,,
+,Inter,Manchester City,,cuartos,,
+,FC Barcelona,FC Bayern Munich,,cuartos,,
+,Real Madrid,Porto,,cuartos,,
+,Real Sociedad,PSV Eindhoven,,cuartos,,
