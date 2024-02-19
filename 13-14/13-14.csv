@@ -1,5 +1,4 @@
-id_partido,equipo_local,equipo_visitante,resultado_final,fase
-4,Atlético de Madrid,Zenit,3-1,fase_de_grupos,,
+id_partido,equipo_local,equipo_visitante,resultado_final,fase,resultado_ida,resultado_vuelta
 5,Chelsea,Basel,1-2,fase_de_grupos,,
 6,Schalke,FCSB,3-0,fase_de_grupos,,
 7,Bayern,CSKA Moskva,3-0,fase_de_grupos,,
