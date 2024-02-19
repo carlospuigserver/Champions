@@ -68,3 +68,15 @@ En las carpetas OCTAVOS, CUARTOS, SEMIS Y FINAL, están todos los csv actualizad
 <img width="779" alt="image" src="https://github.com/carlospuigserver/Champions/assets/91721643/c003e36f-4ff1-4436-aa0f-f0b52f67d46a">
 
 
+
+
+
+## PRECISIÓN DEL MODELO
+
+En el archivo FINAL, donde se hace la predicción cargando todas las rondas anteriores, hay un codigo que indica la precisión del modelo en ese punto, a continuación muestro el código empleado y los resultados:
+
+![codepred](https://github.com/carlospuigserver/Champions/assets/91721643/eb3ae4b2-712a-4a18-a743-0daf38c65b8b)
+
+
+<img width="449" alt="image" src="https://github.com/carlospuigserver/Champions/assets/91721643/3d179f54-efdc-4c42-9e0c-a30cc0570f10">
+
