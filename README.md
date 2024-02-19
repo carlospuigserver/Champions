@@ -65,3 +65,10 @@ Ahora enseñaremos un codigo de ejemplo, este es el que se ha usado para predeci
 En las carpetas OCTAVOS, CUARTOS, SEMIS Y FINAL, están todos los csv actualizados de cada fase de cada ronda, pero por comodidad, los he juntado todos en un csv en la carpeta PREDICCIONES, exixtiendo en dicha carpeta otra carpeta CSV, en la cual estan todas las rondas por separado para una mejor lectura, y en la misma carpeta PREDICCIONES, hay una carpeta SQL, donde he creado una base de datos.db con todas las fases 23-24 predichas para una mejor visión y facilidad de comprensión, ya que ir mirando los CSV de todas las carpetas puede ser lioso.
 
 
+<img width="725" alt="image" src="https://github.com/carlospuigserver/Champions/assets/91721643/ff7a680a-1865-42aa-b29a-71b427cab431">
+<img width="779" alt="image" src="https://github.com/carlospuigserver/Champions/assets/91721643/c003e36f-4ff1-4436-aa0f-f0b52f67d46a">
+<img width="719" alt="image" src="https://github.com/carlospuigserver/Champions/assets/91721643/44efd90d-59f1-4269-8b12-025c109b00ea">
+<img width="699" alt="image" src="https://github.com/carlospuigserver/Champions/assets/91721643/4839452e-2076-4baf-bfbb-cc4e3713c396">
+<img width="760" alt="image" src="https://github.com/carlospuigserver/Champions/assets/91721643/ec44ffbb-704a-4a1b-b24a-c7f00e4f1ed0">
+
+
