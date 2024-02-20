@@ -85,4 +85,4 @@ En el archivo FINAL, donde se hace la predicción cargando todas las rondas ante
 
 ## CONCLUSIONES
 
-Se que no es el mejor modelo, pero como prueba de toma de contacto con modelos de ML, y una introducción a la IA, me parece que podría ser bastante peor. He mejorado bastante la precisión, ya que los dias anteriores, he conseguido que el modelo pase de un 3.5 % a un 50%. Se de sobra que la base de datos es muy pobre, pero ha bastado para que por lo menos, aunque haya sido de esa manera poder entregarte una base de datos con la predicción de los resultados de la Champions 23-24  mínimamente respetable.
+Se que no es el mejor modelo, pero como prueba de toma de contacto con modelos de ML, y una introducción a la IA, me parece que puede ser salvable. He mejorado bastante la precisión, ya que en los últimos días he conseguido subir de un 3.5% a un 50%. Se de sobra que la base de datos es muy pobre, pero ha bastado para por lo menos sacar una base de datos con la predicción de los resultados de la Champions 23-24 coherente.
