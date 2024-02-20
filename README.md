@@ -39,7 +39,7 @@ El proceso comienza con la definición de una función unificar_nombres(df), que
 Se cargan los datos de múltiples temporadas anteriores desde archivos CSV, aplicando la función de mapeo de nombres a cada uno para asegurar la consistencia en los nombres de los equipos. Estos datos se combinan en un único DataFrame, df_todas_temporadas, que reúne la información histórica necesaria para entrenar el modelo de aprendizaje automático. Este paso es vital para construir un conjunto de datos amplio y representativo que refleje las variaciones y tendencias a lo largo de varias temporadas, mejorando así la capacidad predictiva del modelo.
 
 ### Preprocesamiento y Preparación de Características para el Entrenamiento: 
-Tras combinar los datos de diferentes temporadas y fases, se realiza un preprocesamiento para eliminar filas con valores faltantes en la columna resultado_vuelta, asegurando que solo se utilicen datos completos para el entrenamiento. Luego, se preparan las características (X) y las etiquetas (y) necesarias para el modelo. Las características incluyen los equipos locales y visitantes, mientras que las etiquetas son los resultados de los partidos. Este paso es fundamental para definir claramente los inputs y outputs del modelo.
+Tras combinar los datos de diferentes temporadas y fases, se realiza un preprocesamiento para eliminar filas con valores faltantes , asegurando que solo se utilicen datos completos para el entrenamiento. Luego, se preparan las características (X) y las etiquetas (y) necesarias para el modelo. Las características incluyen los equipos locales y visitantes, mientras que las etiquetas son los resultados de los partidos. Este paso es fundamental para definir claramente los inputs y outputs del modelo.
 
 ### Entrenamiento del Modelo: 
 Se crea un pipeline que incluye un ColumnTransformer con un OneHotEncoder para transformar las características categóricas (nombres de los equipos) en un formato numérico que pueda ser procesado por el modelo, y un RandomForestClassifier como el algoritmo de aprendizaje automático para realizar las predicciones. Este pipeline permite una transformación eficiente de los datos y facilita el entrenamiento del modelo utilizando el conjunto de datos preparado. El modelo se entrena con datos históricos, aprendiendo patrones y relaciones entre los equipos y los resultados de los partidos.
@@ -49,8 +49,6 @@ Una vez entrenado el modelo, se utiliza para predecir los resultados de partidos
 
 ### Preparación para Fases Siguientes y Salida Final: 
 Basándose en los ganadores determinados, se procede a mezclar y emparejar los equipos para las siguientes fases del torneo, creando nuevas predicciones y avanzando en la simulación hasta llegar a la final. Finalmente, se combina toda la información actualizada en un nuevo DataFrame y se guarda en un archivo CSV, proporcionando un registro completo de los partidos simulados, incluyendo predicciones de resultados y los equipos que avanzan a cada ronda.
-
-Este proceso destaca el uso de técnicas de ciencia de datos y aprendizaje automático para simular y predecir los resultados de competiciones deportivas, basándose en datos históricos y aplicando métodos estadísticos y de modelado predictivo.
 
 
 
